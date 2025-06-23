@@ -1,70 +1,196 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🧩 1. **App Overview**
 
-## Available Scripts
+You're creating a **centralized support system** where:
 
-In the project directory, you can run:
+- Customers raise **tickets** (issues)
+    
+- Support Agents manage **tasks** related to those tickets
+    
+- Managers **monitor, prioritize, and close** high-level issues
+    
 
-### `npm start`
+This app will live inside **Salesforce** and be accessed via tabs and forms (UIs) created for users.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🖥️ 2. **User Interface (UI) – How It Will Look**
 
-### `npm test`
+### 📌 Tabs in the App:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 🏠 **Home**: Dashboard with charts (tickets by priority, tasks by status)
+    
+- 📝 **Support Tickets**: List of all customer tickets
+    
+- ✅ **Support Tasks**: List of tasks linked to tickets
+    
+- 👤 **Users** (visible to admin/manager)
+    
+- 📂 **Queues** (High-priority tickets auto-assigned here)
+    
 
-### `npm run build`
+Each tab is **clickable** and leads to:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- A **list view** (table of records with filters)
+    
+- A **form view** (record details like ticket info)
+    
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🎨 Form Design (Record UI)
 
-### `npm run eject`
+#### 🧾 **Support Ticket Form**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Auto Ticket Number (like `TKT-00001`)
+    
+- Customer Name, Email, Phone
+    
+- Issue Type (Picklist: Technical/Billing/General)
+    
+- Priority (High/Medium/Low)
+    
+- Status (Open, In Progress, Resolved, Closed)
+    
+- Assigned To (Lookup to User)
+    
+- Description (Issue detail)
+    
+- Resolution Notes (for manager)
+    
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 📋 **Support Task Form**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Task Name
+    
+- Related Ticket (lookup)
+    
+- Assigned To
+    
+- Due Date
+    
+- Status
+    
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🔄 3. **Workflow – How It Works**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🧑‍💼 Role 1: Support Agent
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Logs in to the Salesforce app.
+    
+2. Opens **Support Tickets** tab → Sees list of open tickets.
+    
+3. Clicks on a ticket → Views form (basic layout).
+    
+4. Edits **status**, adds **description**, or creates related **tasks**.
+    
+5. Navigates to **Support Tasks** → Picks a task → Marks it complete.
+    
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 👩‍💼 Role 2: Support Manager
 
-### Analyzing the Bundle Size
+1. Logs in → Sees more fields (e.g. Priority, Resolution Notes).
+    
+2. Can **filter by high priority** or **technical issues**.
+    
+3. Can **reassign tickets**, change status to Closed, or write resolution notes.
+    
+4. Manages **users**, **queues**, and **sharing rules**.
+    
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+### 🔁 Ticket Lifecycle Example:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+|Step|What Happens|
+|---|---|
+|1|Customer calls or emails a complaint|
+|2|Agent creates a new **Support Ticket**|
+|3|Agent assigns themselves and updates status|
+|4|Agent creates **Support Tasks** for sub-work (email reply, data check)|
+|5|Manager sees ticket is marked “High Priority” (via Queue or filter)|
+|6|Manager resolves the issue and adds **Resolution Notes**|
+|7|Ticket marked as “Resolved” or “Closed”|
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🧠 4. **Smart Features & Automation (Optional but Strong)**
 
-### Deployment
+|Feature|Purpose|
+|---|---|
+|**Validation Rule**|Prevent closing ticket without filling Resolution Notes|
+|**Workflow Rule / Flow**|Send email when priority = High|
+|**Queue**|Auto-assign High-Priority tickets to group|
+|**Sharing Rule**|Auto-share tickets with Technical Group if issue = Technical|
+|**Dashboard**|Display ticket stats for Manager (Open, Closed, by Agent, etc.)|
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 👥 5. **User Management**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+|User Type|Permissions|
+|---|---|
+|Support Agent|View/Edit tickets, tasks assigned to them|
+|Support Manager|Full access to all records, layouts, queues|
+|Viewer (Permission Set)|Can only view ticket/task records|
+|Admin|Create users, manage objects, assign profiles|
+
+---
+
+## 📊 6. **Use Cases in Real Life**
+
+|Use Case|How This Project Solves It|
+|---|---|
+|Customer has billing issue|Ticket raised with Issue Type = Billing|
+|Agent follows up and fixes|Task created and completed|
+|Technical error reported|Ticket marked Technical → Shared with Technical group|
+|Ticket urgent?|Goes to “High-Priority Tickets” queue for fast resolution|
+|Want to check performance?|Manager opens Dashboard: “Tickets by Status”, “Avg Resolution Time”|
+
+---
+
+## 📂 7. **Final Deliverables You Can Showcase**
+
+- Screenshots of:
+    
+    - Ticket and Task forms
+        
+    - Tabs and list views
+        
+    - Dashboard (if added)
+        
+- A PDF documentation (I can help you format this)
+    
+- Optional video demo using screen record
+    
+- Explanation of:
+    
+    - Profiles
+        
+    - Record types
+        
+    - Queues and sharing
+        
+
+---
+
+## ✅ Summary
+
+|Part|Description|
+|---|---|
+|App|Customer Support – Custom App|
+|Objects|Support_Ticket__c, Support_Task__c|
+|Users|Agents, Managers, Viewers|
+|Permissions|Profiles, Permission Sets|
+|Access|Sharing rules, groups, queues|
+|Features|Tabs, page layouts, record types, data wizard|
+|Workflow|Ticket creation → Task assignment → Resolution by role|
+
+---
+
+
+Would you like a **build guide** next?
