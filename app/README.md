@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# 🛠️ Centralized Support System (Salesforce App)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A custom **Salesforce Lightning App** designed to manage customer support tickets and related tasks through a structured and automated workflow. This project streamlines support operations with role-based access, smart automation, dashboards, and clean UI components.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Project Overview
 
-### `npm start`
+This app allows:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Customers** to raise issues (via agents)
+- **Support Agents** to manage tasks and resolve tickets
+- **Support Managers** to monitor, prioritize, and close high-level tickets
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Built using **Salesforce custom objects, flows, queues, dashboards, and security features**.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧱 Core Features
 
-### `npm run build`
+### 📋 Objects
+- `Support_Ticket__c`: Stores customer issues
+- `Support_Task__c`: Tasks linked to tickets
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🧑‍💻 Roles
+| Role | Access Level |
+|------|--------------|
+| Support Agent | View/edit assigned tickets and tasks |
+| Support Manager | Full access to all records, queues, resolution notes |
+| Viewer | Read-only access to tickets and tasks |
+| Admin | Manage users, profiles, layouts, and automation |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧾 Support Ticket Form Fields
 
-### `npm run eject`
+- Auto-generated Ticket Number (`TKT-00001`, etc.)
+- Customer Name, Email, Phone
+- Issue Type (Technical, Billing, General)
+- Priority (High/Medium/Low)
+- Status (Open, In Progress, Resolved, Closed)
+- Assigned To (User Lookup)
+- Description & Resolution Notes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📋 Support Task Form Fields
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Task Name
+- Related Ticket (Lookup)
+- Assigned To
+- Due Date
+- Status (To Do, In Progress, Done)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🔄 Workflow & Automation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Feature | Description |
+|--------|-------------|
+| 🟢 Validation Rule | Prevent closing ticket without Resolution Notes |
+| 🔁 Flow | Auto-email when ticket is High Priority |
+| 📥 Queue | High-priority tickets auto-assigned to a queue |
+| 👥 Sharing Rule | Auto-share technical tickets with Technical Group |
+| 📊 Dashboard | Tickets by Status, Priority, Agent |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔎 Dashboard & Tabs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Tabs**: Home, Support Tickets, Support Tasks, Users, Queues
+- **Dashboard**: Ticket metrics (Open, Resolved, Avg Time, etc.)
+- **List Views**: Filter by priority, status, or assigned user
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 💻 How It Works
 
-### Making a Progressive Web App
+1. Agent creates a support ticket after customer complaint
+2. Agent updates status and creates related tasks
+3. Manager monitors, assigns, and closes tickets
+4. Automation handles notifications and assignment
+5. Dashboards visualize key metrics
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 📂 Folder Structure (for this repo)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+📁 salesforce-support-system/
+├── 📁 screenshots/         # UI Screenshots
+├── 📁 documentation/       # PDF case study, setup guide
+├── 📁 sample-data/         # CSV files for import (tickets, tasks)
+├── README.md               # This file
+└── demo.mp4 (optional)     # Screen recording of the app
