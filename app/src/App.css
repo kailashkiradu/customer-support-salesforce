@@ -1,12 +1,24 @@
-/* src/App.css */
-
+/* ───── General Styling ───── */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background: #f6f8fa;
+  background-color: #f4f6f9;
+  color: #333;
 }
 
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ───── Navbar ───── */
 .navbar {
   background-color: #1976d2;
   color: white;
@@ -16,8 +28,13 @@ body {
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .nav-links {
@@ -29,35 +46,52 @@ body {
 
 .nav-links a {
   color: white;
-  text-decoration: none;
   font-weight: 500;
+  padding-bottom: 2px;
   transition: border-bottom 0.2s;
 }
 
 .nav-links a:hover {
   border-bottom: 2px solid white;
 }
+.nav-links .active {
+  border-bottom: 2px solid #fff;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}
 
 .role-display {
   font-size: 0.9rem;
   font-weight: 600;
+  margin-left: 1.5rem;
 }
 
-
+/* ───── Main Layout ───── */
 .main-content {
   padding: 2rem;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
 }
 
-
+/* ───── Home Page ───── */
 .home-page {
   max-width: 600px;
   margin: auto;
   background: white;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .role-switcher {
@@ -65,35 +99,83 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 }
-.ticket-form {
+
+/* ───── Login Page ───── */
+.login-page {
+  max-width: 400px;
+  margin: 4rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+.login-page input,
+.login-page select {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-page button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-page button:hover {
+  background-color: #115293;
+}
+
+/* ───── Ticket / Task Form ───── */
+.ticket-form,
+.task-form {
   background: white;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin: 2rem auto;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 700px;
 }
 
 .ticket-form input,
 .ticket-form textarea,
-.ticket-form select {
+.ticket-form select,
+.task-form input,
+.task-form textarea,
+.task-form select {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  width: 100%;
 }
 
-.ticket-form textarea {
+textarea {
   resize: vertical;
 }
 
-.ticket-form button {
+.ticket-form button,
+.task-form button {
   background-color: #1976d2;
   color: white;
   border: none;
@@ -105,30 +187,37 @@ body {
   transition: background-color 0.3s;
 }
 
-.ticket-form button:hover {
+.ticket-form button:hover,
+.task-form button:hover {
   background-color: #115293;
 }
 
-.ticket-list {
+/* ───── Ticket / Task Card List ───── */
+.ticket-list,
+.task-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 1rem;
 }
-.ticket-card {
+
+.ticket-card,
+.task-card {
   background-color: #fff;
   padding: 1rem 1.5rem;
   border-radius: 8px;
   border-left: 5px solid #1976d2;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.1s ease-in-out;
 }
 
-.ticket-card:hover {
+.ticket-card:hover,
+.task-card:hover {
   transform: translateY(-2px);
 }
 
-.ticket-header {
+.ticket-header,
+.task-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -137,6 +226,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* ───── Status Badges ───── */
 .status {
   padding: 0.25rem 0.6rem;
   border-radius: 5px;
@@ -148,25 +238,113 @@ body {
 .status.Open {
   background-color: #f44336;
 }
-.status["In Progress"] {
+
+.status.InProgress {
   background-color: #ff9800;
 }
+
 .status.Resolved {
   background-color: #4caf50;
 }
+
 .status.Closed {
   background-color: #607d8b;
 }
 
-.ticket-header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+.status.Completed {
+  background-color: #388e3c;
 }
 
-.status {
-  background: #e3f2fd;
-  padding: 0.2rem 0.6rem;
+/* ───── User Management ───── */
+.user-form {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0 2rem;
+  flex-wrap: wrap;
+}
+
+.user-form input,
+.user-form select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.user-form button {
+  padding: 0.5rem 1rem;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #e0e0e0;
+  padding: 0.6rem;
+  text-align: left;
+}
+
+.user-table th {
+  background: #f5f5f5;
+}
+
+.user-table button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
   border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.user-table button:first-of-type {
+  background: #4caf50;
+  color: #fff;
+}
+.user-table button:nth-of-type(2) {
+  background: #f44336;
+  color: #fff;
+}
+
+/* ───── Dashboard ───── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.chart-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out;
+}
+
+.chart-card:hover {
+  transform: scale(1.02);
+}
+
+.chart-card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* ───── Button Group (Table Actions) ───── */
+.button-group button {
+  margin-right: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
 }

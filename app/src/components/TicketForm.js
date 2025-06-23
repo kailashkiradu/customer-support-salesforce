@@ -1,13 +1,16 @@
-import { useState } from 'react';
+// src/components/TicketForm.js
+import { useState } from "react";
 
 export default function TicketForm({ addTicket }) {
   const [form, setForm] = useState({
-    customerName: '',
-    email: '',
-    issueType: 'Technical',
-    priority: 'Medium',
-    status: 'Open',
-    description: ''
+    customerName: "",
+    email: "",
+    phone: "",
+    issueType: "",
+    priority: "Medium",
+    status: "Open",
+    assignedTo: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -16,32 +19,89 @@ export default function TicketForm({ addTicket }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTicket({ ...form, id: Date.now() });
+    const newTicket = {
+      ...form,
+      id: Date.now(),
+      ticketNumber: `TCK-${Date.now().toString().slice(-5)}`, // generate unique ticket number
+    };
+    addTicket(newTicket);
     setForm({
-      customerName: '',
-      email: '',
-      issueType: 'Technical',
-      priority: 'Medium',
-      status: 'Open',
-      description: ''
+      customerName: "",
+      email: "",
+      phone: "",
+      issueType: "",
+      priority: "Medium",
+      status: "Open",
+      assignedTo: "",
+      description: "",
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '1rem' }}>
-      <input type="text" name="customerName" placeholder="Customer Name" value={form.customerName} onChange={handleChange} required />
-      <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} />
-      <select name="issueType" value={form.issueType} onChange={handleChange}>
-        <option value="Technical">Technical</option>
-        <option value="Billing">Billing</option>
-        <option value="General">General</option>
-      </select>
+    <form className="ticket-form" onSubmit={handleSubmit}>
+      <h3>Create Support Ticket</h3>
+
+      <input
+        name="customerName"
+        placeholder="Customer Name"
+        value={form.customerName}
+        onChange={handleChange}
+        required
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Customer Email"
+        value={form.email}
+        onChange={handleChange}
+        required
+      />
+
+      <input
+        name="phone"
+        placeholder="Phone Number"
+        value={form.phone}
+        onChange={handleChange}
+      />
+
+      <input
+        name="issueType"
+        placeholder="Issue Type (e.g., Login issue, Billing)"
+        value={form.issueType}
+        onChange={handleChange}
+        required
+      />
+
       <select name="priority" value={form.priority} onChange={handleChange}>
-        <option>High</option>
-        <option>Medium</option>
         <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
       </select>
-      <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} />
+
+      <select name="status" value={form.status} onChange={handleChange}>
+        <option>Open</option>
+        <option>In Progress</option>
+        <option>Resolved</option>
+        <option>Closed</option>
+      </select>
+
+      <input
+        name="assignedTo"
+        placeholder="Assigned To (optional)"
+        value={form.assignedTo}
+        onChange={handleChange}
+      />
+
+      <textarea
+        name="description"
+        placeholder="Issue Description"
+        value={form.description}
+        onChange={handleChange}
+        rows="4"
+      />
+
       <button type="submit">Add Ticket</button>
     </form>
   );
