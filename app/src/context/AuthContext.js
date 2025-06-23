@@ -1,26 +1,37 @@
-// src/context/AuthContext.js
 import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  // ───────────────────────────────────────── current user
-  const [currentUser, setCurrentUser] = useState(null);
+  /* ───────────── Current logged-in user ───────────── */
+  const [user, setUser] = useState(null);
 
-  // ───────────────────────────────────────── users list
+  /* ───────────── List of all users ───────────── */
   const [users, setUsers] = useState([
     { id: 1, username: "agent1",  role: "agent",   group: "Support Team" },
     { id: 2, username: "mgr1",    role: "manager", group: "Support Team" },
     { id: 3, username: "viewer1", role: "viewer",  group: "Viewers"      }
   ]);
 
-  // login / logout (dummy – replace with real auth later)
-  const login  = (userObj) => setCurrentUser(userObj);
-  const logout = ()           => setCurrentUser(null);
+  /* ───────────── Login / Logout ───────────── */
+  const login = ({ username, role }) => {
+    /* ----- Simple version: accepts anything ----- */
+    setUser({ username, role });
 
-  // CRUD helpers for users  ──────────────────────────────
-  const addUser = (user) =>
-    setUsers([...users, { ...user, id: Date.now() }]);
+    /* ----- If you want to validate against user list, replace with: -----
+    const found = users.find(
+      u => u.username === username && u.role === role
+    );
+    if (found) setUser(found);
+    else alert("User not found. Add it first in User Management.");
+    -------------------------------------------------------------------- */
+  };
+
+  const logout = () => setUser(null);
+
+  /* ───────────── User CRUD helpers ───────────── */
+  const addUser = (newUser) =>
+    setUsers([...users, { ...newUser, id: Date.now() }]);
 
   const updateUser = (updated) =>
     setUsers(users.map(u => (u.id === updated.id ? updated : u)));
@@ -28,13 +39,13 @@ export function AuthProvider({ children }) {
   const deleteUser = (id) =>
     setUsers(users.filter(u => u.id !== id));
 
+  /* ───────────── Context Value ───────────── */
   return (
     <AuthContext.Provider
       value={{
-        currentUser,
+        user,          // <─ renamed
         login,
         logout,
-        // NEW ↓ – expose user-management helpers
         users,
         addUser,
         updateUser,
