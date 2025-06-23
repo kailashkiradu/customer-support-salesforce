@@ -1,196 +1,95 @@
+# 🛠️ Centralized Support System (Salesforce App)
 
-## 🧩 1. **App Overview**
-
-You're creating a **centralized support system** where:
-
-- Customers raise **tickets** (issues)
-    
-- Support Agents manage **tasks** related to those tickets
-    
-- Managers **monitor, prioritize, and close** high-level issues
-    
-
-This app will live inside **Salesforce** and be accessed via tabs and forms (UIs) created for users.
+A custom **Salesforce Lightning App** designed to manage customer support tickets and related tasks through a structured and automated workflow. This project streamlines support operations with role-based access, smart automation, dashboards, and clean UI components.
 
 ---
 
-## 🖥️ 2. **User Interface (UI) – How It Will Look**
+## 📌 Project Overview
 
-### 📌 Tabs in the App:
+This app allows:
 
-- 🏠 **Home**: Dashboard with charts (tickets by priority, tasks by status)
-    
-- 📝 **Support Tickets**: List of all customer tickets
-    
-- ✅ **Support Tasks**: List of tasks linked to tickets
-    
-- 👤 **Users** (visible to admin/manager)
-    
-- 📂 **Queues** (High-priority tickets auto-assigned here)
-    
+- **Customers** to raise issues (via agents)
+- **Support Agents** to manage tasks and resolve tickets
+- **Support Managers** to monitor, prioritize, and close high-level tickets
 
-Each tab is **clickable** and leads to:
-
-- A **list view** (table of records with filters)
-    
-- A **form view** (record details like ticket info)
-    
+Built using **Salesforce custom objects, flows, queues, dashboards, and security features**.
 
 ---
 
-### 🎨 Form Design (Record UI)
+## 🧱 Core Features
 
-#### 🧾 **Support Ticket Form**
+### 📋 Objects
+- `Support_Ticket__c`: Stores customer issues
+- `Support_Task__c`: Tasks linked to tickets
 
-- Auto Ticket Number (like `TKT-00001`)
-    
+### 🧑‍💻 Roles
+| Role | Access Level |
+|------|--------------|
+| Support Agent | View/edit assigned tickets and tasks |
+| Support Manager | Full access to all records, queues, resolution notes |
+| Viewer | Read-only access to tickets and tasks |
+| Admin | Manage users, profiles, layouts, and automation |
+
+---
+
+## 🧾 Support Ticket Form Fields
+
+- Auto-generated Ticket Number (`TKT-00001`, etc.)
 - Customer Name, Email, Phone
-    
-- Issue Type (Picklist: Technical/Billing/General)
-    
+- Issue Type (Technical, Billing, General)
 - Priority (High/Medium/Low)
-    
 - Status (Open, In Progress, Resolved, Closed)
-    
-- Assigned To (Lookup to User)
-    
-- Description (Issue detail)
-    
-- Resolution Notes (for manager)
-    
+- Assigned To (User Lookup)
+- Description & Resolution Notes
 
-#### 📋 **Support Task Form**
+---
+
+## 📋 Support Task Form Fields
 
 - Task Name
-    
-- Related Ticket (lookup)
-    
+- Related Ticket (Lookup)
 - Assigned To
-    
 - Due Date
-    
-- Status
-    
+- Status (To Do, In Progress, Done)
 
 ---
 
-## 🔄 3. **Workflow – How It Works**
+## 🔄 Workflow & Automation
 
-### 🧑‍💼 Role 1: Support Agent
-
-1. Logs in to the Salesforce app.
-    
-2. Opens **Support Tickets** tab → Sees list of open tickets.
-    
-3. Clicks on a ticket → Views form (basic layout).
-    
-4. Edits **status**, adds **description**, or creates related **tasks**.
-    
-5. Navigates to **Support Tasks** → Picks a task → Marks it complete.
-    
+| Feature | Description |
+|--------|-------------|
+| 🟢 Validation Rule | Prevent closing ticket without Resolution Notes |
+| 🔁 Flow | Auto-email when ticket is High Priority |
+| 📥 Queue | High-priority tickets auto-assigned to a queue |
+| 👥 Sharing Rule | Auto-share technical tickets with Technical Group |
+| 📊 Dashboard | Tickets by Status, Priority, Agent |
 
 ---
 
-### 👩‍💼 Role 2: Support Manager
+## 🔎 Dashboard & Tabs
 
-1. Logs in → Sees more fields (e.g. Priority, Resolution Notes).
-    
-2. Can **filter by high priority** or **technical issues**.
-    
-3. Can **reassign tickets**, change status to Closed, or write resolution notes.
-    
-4. Manages **users**, **queues**, and **sharing rules**.
-    
+- **Tabs**: Home, Support Tickets, Support Tasks, Users, Queues
+- **Dashboard**: Ticket metrics (Open, Resolved, Avg Time, etc.)
+- **List Views**: Filter by priority, status, or assigned user
 
 ---
 
-### 🔁 Ticket Lifecycle Example:
+## 💻 How It Works
 
-|Step|What Happens|
-|---|---|
-|1|Customer calls or emails a complaint|
-|2|Agent creates a new **Support Ticket**|
-|3|Agent assigns themselves and updates status|
-|4|Agent creates **Support Tasks** for sub-work (email reply, data check)|
-|5|Manager sees ticket is marked “High Priority” (via Queue or filter)|
-|6|Manager resolves the issue and adds **Resolution Notes**|
-|7|Ticket marked as “Resolved” or “Closed”|
+1. Agent creates a support ticket after customer complaint
+2. Agent updates status and creates related tasks
+3. Manager monitors, assigns, and closes tickets
+4. Automation handles notifications and assignment
+5. Dashboards visualize key metrics
 
 ---
 
-## 🧠 4. **Smart Features & Automation (Optional but Strong)**
+## 📂 Folder Structure (for this repo)
 
-|Feature|Purpose|
-|---|---|
-|**Validation Rule**|Prevent closing ticket without filling Resolution Notes|
-|**Workflow Rule / Flow**|Send email when priority = High|
-|**Queue**|Auto-assign High-Priority tickets to group|
-|**Sharing Rule**|Auto-share tickets with Technical Group if issue = Technical|
-|**Dashboard**|Display ticket stats for Manager (Open, Closed, by Agent, etc.)|
-
----
-
-## 👥 5. **User Management**
-
-|User Type|Permissions|
-|---|---|
-|Support Agent|View/Edit tickets, tasks assigned to them|
-|Support Manager|Full access to all records, layouts, queues|
-|Viewer (Permission Set)|Can only view ticket/task records|
-|Admin|Create users, manage objects, assign profiles|
-
----
-
-## 📊 6. **Use Cases in Real Life**
-
-|Use Case|How This Project Solves It|
-|---|---|
-|Customer has billing issue|Ticket raised with Issue Type = Billing|
-|Agent follows up and fixes|Task created and completed|
-|Technical error reported|Ticket marked Technical → Shared with Technical group|
-|Ticket urgent?|Goes to “High-Priority Tickets” queue for fast resolution|
-|Want to check performance?|Manager opens Dashboard: “Tickets by Status”, “Avg Resolution Time”|
-
----
-
-## 📂 7. **Final Deliverables You Can Showcase**
-
-- Screenshots of:
-    
-    - Ticket and Task forms
-        
-    - Tabs and list views
-        
-    - Dashboard (if added)
-        
-- A PDF documentation (I can help you format this)
-    
-- Optional video demo using screen record
-    
-- Explanation of:
-    
-    - Profiles
-        
-    - Record types
-        
-    - Queues and sharing
-        
-
----
-
-## ✅ Summary
-
-|Part|Description|
-|---|---|
-|App|Customer Support – Custom App|
-|Objects|Support_Ticket__c, Support_Task__c|
-|Users|Agents, Managers, Viewers|
-|Permissions|Profiles, Permission Sets|
-|Access|Sharing rules, groups, queues|
-|Features|Tabs, page layouts, record types, data wizard|
-|Workflow|Ticket creation → Task assignment → Resolution by role|
-
----
-
-
-Would you like a **build guide** next?
+```bash
+📁 salesforce-support-system/
+├── 📁 screenshots/         # UI Screenshots
+├── 📁 documentation/       # PDF case study, setup guide
+├── 📁 sample-data/         # CSV files for import (tickets, tasks)
+├── README.md               # This file
+└── demo.mp4 (optional)     # Screen recording of the app
